@@ -19,8 +19,9 @@ jobs:
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
           RELEASE_NOTE: ${{ github.event.repository.html_url }}/releases
-          NAME: ${{ github.event.pusher.name }}
-          ICON: ${{ github.event.sender.avatar_url }}
+          USER_NAME: ${{ github.event.pusher.name }}
+          USER_ICON: ${{ github.event.sender.avatar_url }}
+          COMMIT_URL: ${{ github.event.head_commit.url }}
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         with:
           text: ${{ env.RELEASE_NOTE }} Hello, Slack! ${{ env.user_name }}, ${{ env.PUSHER_NAME }}
@@ -28,9 +29,10 @@ jobs:
             [
               {
                 "color": "good",
-                "pretext": "Optional pre-text that appears above the attachment block",
-                "author_name": "${{ env.NAME }}",
-                "author_icon": "${{ env.ICON }}",
+                "author_name": "${{ env.USER_NAME }}",
+                "author_icon": "${{ env.USER_ICON }}",
+                "title": "${{ env.COMMIT_MESSAGE }}",
+                "title_link": "${{ env.COMMIT_URL }}",
                 "fields": [
                   {
                     "title": "Commit Message",
