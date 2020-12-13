@@ -32,12 +32,12 @@ jobs:
                 "author_name": "${{ env.USER_NAME }}",
                 "author_icon": "${{ env.USER_ICON }}",
                 "title": "${{ env.COMMIT_MESSAGE }}",
-                "title_link": "${{ env.COMMIT_URL }}",
-                "fields": [
-                  {
-                    "title": "Commit Message",
-                    "value": "${{ env.COMMIT_MESSAGE }}"
-                  }
-                ]
+                "title_link": "${{ env.COMMIT_URL }}"
+#                "fields": [
+#                  {
+#                    "title": "Commit Message",
+#                    "value": "${{ env.COMMIT_MESSAGE }}"
+#                  }
+#                ]
               }
             ]
