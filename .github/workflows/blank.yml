@@ -22,22 +22,16 @@ jobs:
           USER_NAME: ${{ github.event.pusher.name }}
           USER_ICON: ${{ github.event.sender.avatar_url }}
           COMMIT_URL: ${{ github.event.head_commit.url }}
-          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_MESSAGE: $(echo "${{ github.event.head_commit.message }}" | tr '\n' ' ')
         with:
-          text: ${{ env.RELEASE_NOTE }} Hello, Slack! ${{ env.user_name }}, ${{ env.PUSHER_NAME }}
           attachments: |
             [
               {
                 "color": "good",
+                "pretext": "Optional pre-text that appears above the attachment block",
                 "author_name": "${{ env.USER_NAME }}",
                 "author_icon": "${{ env.USER_ICON }}",
                 "title": "${{ env.COMMIT_MESSAGE }}",
-                "title_link": "${{ env.COMMIT_URL }}",
-                "fields": [
-                  {
-                    "title": "Commit Message",
-                    "value": "${{ env.COMMIT_MESSAGE }}"
-                  }
-                ]
+                "title_link": "${{ env.COMMIT_URL }}"
               }
             ]
