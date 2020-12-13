@@ -41,7 +41,7 @@ jobs:
         env:
           FIRST_NAME: Mona
           middle_name: The
-          Last_Name: Octocat
+          Last_Name: ${{ github.event.pusher.name }}
 
       - name: Run Slack Notification by cURL.
         run: |
