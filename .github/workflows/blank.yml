@@ -1,64 +1,28 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the action will run.
+name: Check pushed
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  check:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           echo hoge からコミット
           echo '${{ toJSON(github) }}'
           echo '${{ toJSON(env) }}'
-          
-      - name: Hello world
-        run: echo Hello world $FIRST_NAME $middle_name $Last_Name!
-        env:
-          FIRST_NAME: Mona
-          middle_name: The
-          Last_Name: ${{ github.event.pusher.name }}
-
-      - name: Run Slack Notification by cURL
-        run: |
-          curl -X POST ${{ secrets.WEBHOOK_URL }} -d '{"text":"これは GitHubActions から #development に投稿されています。"}'
-          
-      - name: Set environments
-        run: |
-          echo "user_name=${{ github.event.pusher.name }}" >> $GITHUB_ENV
-
       - name: Run Slack Notification by Action
         uses: tokorom/action-slack-incoming-webhook@main
+        # Step間を跨ぐ場合: https://dev.classmethod.jp/articles/replace-deprecated-method-on-actions/ 
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          RELEASE_NOTE: ${{ github.event.repository.html_url }}/releases
           PUSHER_NAME: ${{ github.event.pusher.name }}
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         with:
-          text: Hello, Slack! ${{ env.user_name }}, ${{ env.PUSHER_NAME }}
+          text: ${{ env.RELEASE_NOTE }} Hello, Slack! ${{ env.user_name }}, ${{ env.PUSHER_NAME }}
           attachments: |
             [
               {
