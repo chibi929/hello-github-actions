@@ -35,9 +35,17 @@ jobs:
           echo hoge からコミット
           echo '${{ toJSON(github) }}'
           echo '${{ toJSON(env) }}'
+          
+      - name: Hello world
+        run: echo Hello world $FIRST_NAME $middle_name $Last_Name!
+        env:
+          FIRST_NAME: Mona
+          middle_name: The
+          Last_Name: Octocat
 
       - name: Run Slack Notification by cURL.
-        run: curl -X POST ${{ secrets.WEBHOOK_URL }} -d '{"text":"これは GitHubActions から #development に投稿されています。"}'
+        run: |
+          curl -X POST ${{ secrets.WEBHOOK_URL }} -d '{"text":"これは GitHubActions から #development に投稿されています。"}'
 
       - name: Run Slack Notification by Action
         uses: tokorom/action-slack-incoming-webhook@main
