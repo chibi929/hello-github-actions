@@ -57,4 +57,4 @@ jobs:
           INCOMING_WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
           NAME: ${{ github.event.pusher.name }}
         with:
-          text: Hello, Slack! ${{ user_name }}, ${{ NAME }}
+          text: Hello, Slack! ${{ env.user_name }}, ${{ env.NAME }}
