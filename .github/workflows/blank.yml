@@ -52,4 +52,4 @@ jobs:
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         with:
-          text: Hello, Slack!
+          text: Hello, Slack! $FIRST_NAME
