@@ -1,4 +1,3 @@
-#test
 name: Check pushed
 on:
   push:
@@ -17,7 +16,7 @@ jobs:
       - name: Set Environments
         # Step間を跨ぐ場合: https://dev.classmethod.jp/articles/replace-deprecated-method-on-actions/ 
         run: |
-          echo "COMMIT_MESSAGE=$(echo "${{ github.event.head_commit.message }}" | tr '\n' ' ')" >> $GITHUB_ENV
+          echo "COMMIT_MESSAGE=$(echo "${{ github.event.head_commit.message }}" | tr '\n' ' ' | tr '\r' ' ')" >> $GITHUB_ENV
       - name: Run Slack Notification by Action
         uses: tokorom/action-slack-incoming-webhook@main
         env:
