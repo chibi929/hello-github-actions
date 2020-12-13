@@ -35,4 +35,4 @@ jobs:
           echo hoge からコミット
           echo '${{ toJSON(github) }}'
           echo '${{ toJSON(env) }}'
-          echo "プルリク出したら飛ぶようにしたい"
+          curl -X POST ${{ WEBHOOK_URL }} -d '{"text": "これは GitHubActions から #development に投稿されています。"}'
