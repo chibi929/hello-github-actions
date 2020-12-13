@@ -51,5 +51,6 @@ jobs:
         uses: tokorom/action-slack-incoming-webhook@main
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          NAME: ${{ github.event.pusher.name }}
         with:
-          text: Hello, Slack! $FIRST_NAME
+          text: Hello, Slack! $NAME
