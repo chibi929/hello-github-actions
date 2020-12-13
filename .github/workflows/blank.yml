@@ -55,6 +55,23 @@ jobs:
         uses: tokorom/action-slack-incoming-webhook@main
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          NAME: ${{ github.event.pusher.name }}
+          PUSHER_NAME: ${{ github.event.pusher.name }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         with:
-          text: Hello, Slack! ${{ env.user_name }}, ${{ env.NAME }}
+          text: Hello, Slack! ${{ env.user_name }}, ${{ env.PUSHER_NAME }}
+          attachments: |
+            [
+              {
+                "color": "good",
+                "fields": [
+                  {
+                    "title": "Name",
+                    "value": "${{ env.PUSHER_NAME }}"
+                  },
+                  {
+                    "title": "Commit Message",
+                    "value": "${{ env.COMMIT_MESSAGE }}"
+                  }
+                ]
+              }
+            ]
