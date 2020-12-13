@@ -30,7 +30,7 @@ jobs:
             [
               {
                 "color": "good",
-                "pretext": "Optional pre-text that appears above the attachment block",
+                "pretext": "Did you write the release notes? Let's check: ${{ env.RELEASE_NOTE }}",
                 "author_name": "${{ env.USER_NAME }}",
                 "author_icon": "${{ env.USER_ICON }}",
                 "title": "${{ env.COMMIT_MESSAGE }}",
